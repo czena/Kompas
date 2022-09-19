@@ -1,25 +1,15 @@
 ﻿{
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:15836",
-      "sslPort": 0
-    }
-  },
   "profiles": {
-    "Circles.Api": {
+    "Run": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "applicationUrl": "http://localhost:5068",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
+
+    "Migrate": {
+      "commandName": "Project",
+      "commandLineArgs": "migrate",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
