@@ -10,7 +10,7 @@ namespace Circles.Persistence;
 public class UserRepository: IUserRepository
 {
     private readonly string _connectionString;
-    
+    private string t = "";
     public UserRepository(IOptions<ConnectionStringConfiguration> connectionStringOptions)
     {
         _connectionString = connectionStringOptions.Value.ConnectionString ?? "";
