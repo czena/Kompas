@@ -19,7 +19,17 @@ public sealed class Initial : SqlMigration
                 (
                     login text PRIMARY KEY,
                     password text
-                );";
+                );
+                INSERT INTO circles (description, x, y)
+                VALUES
+                ('Окружность 1', 0, 10),
+                ('Окружность 2', 100, 100),
+                ('Окружность 3', 150, 100),
+                ('Окружность 4', 33, 89),
+                ('Окружность 5', 120, 400),
+                ('Окружность 6', 18, 3),
+                ('Окружность 7', 2500, 3020)"
+            ;
     }
 
     protected override string GetDownSql(IServiceProvider services)

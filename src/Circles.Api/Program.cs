@@ -13,12 +13,10 @@ public static class Program
             .RunWithMigrate(args);
 
     private static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host
-            .CreateDefaultBuilder(args)
-            .ConfigureWebHost(
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(
                 builder =>
                 {
-                    builder.UseKestrel(o => o.Listen(IPAddress.Any, 5002, options => options.Protocols = HttpProtocols.Http2));
                     builder.UseStartup<Startup>();
                 });
 
@@ -30,7 +28,6 @@ public static class Program
             var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
             runner.MigrateUp();
         }
-        else
-            host.Run();
+        else host.Run();
     }
 }

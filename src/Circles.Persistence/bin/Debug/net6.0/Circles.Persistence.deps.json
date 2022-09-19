@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "Circles.Persistence/1.0.0": {
         "dependencies": {
+          "Circles.Domain": "1.0.0",
           "FluentMigrator": "3.3.2",
           "FluentMigrator.Runner": "3.3.2",
           "Microsoft.Extensions.Options": "6.0.0",
@@ -629,6 +630,11 @@
             "fileVersion": "4.700.19.56404"
           }
         }
+      },
+      "Circles.Domain/1.0.0": {
+        "runtime": {
+          "Circles.Domain.dll": {}
+        }
       }
     }
   },
@@ -1015,6 +1021,11 @@
       "sha512": "sha512-CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
       "path": "system.windows.extensions/4.7.0",
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
+    },
+    "Circles.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

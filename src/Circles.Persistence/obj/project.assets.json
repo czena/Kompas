@@ -962,6 +962,16 @@
             "rid": "win"
           }
         }
+      },
+      "Circles.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Circles.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Circles.Domain.dll": {}
+        }
       }
     }
   },
@@ -2430,10 +2440,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Circles.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Circles.Domain/Circles.Domain.csproj",
+      "msbuildProject": "../Circles.Domain/Circles.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Circles.Domain >= 1.0.0",
       "FluentMigrator >= 3.3.2",
       "FluentMigrator.Runner >= 3.3.2",
       "Microsoft.Extensions.Options >= 6.0.0",
@@ -2466,7 +2482,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\C#\\KompasTest\\src\\Circles.Domain\\Circles.Domain.csproj": {
+              "projectPath": "E:\\C#\\KompasTest\\src\\Circles.Domain\\Circles.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

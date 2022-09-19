@@ -10,3 +10,6 @@ E:\C#\KompasTest\src\Circles.Persistence\obj\Debug\net6.0\Circles.Persistence.dl
 E:\C#\KompasTest\src\Circles.Persistence\obj\Debug\net6.0\refint\Circles.Persistence.dll
 E:\C#\KompasTest\src\Circles.Persistence\obj\Debug\net6.0\Circles.Persistence.pdb
 E:\C#\KompasTest\src\Circles.Persistence\obj\Debug\net6.0\ref\Circles.Persistence.dll
+E:\C#\KompasTest\src\Circles.Persistence\bin\Debug\net6.0\Circles.Domain.dll
+E:\C#\KompasTest\src\Circles.Persistence\bin\Debug\net6.0\Circles.Domain.pdb
+E:\C#\KompasTest\src\Circles.Persistence\obj\Debug\net6.0\Circles.Persistence.csproj.CopyComplete

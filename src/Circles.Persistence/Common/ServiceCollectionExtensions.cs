@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Circles.Persistence.Configurations;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Processors;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddFluentMigrator(
         this IServiceCollection services,
-        string connectionString,
+        ConnectionStringConfiguration? connectionStringConfig,
         Assembly assembly)
     {
         services
@@ -25,7 +26,7 @@ public static class ServiceCollectionExtensions
                 {
                     options.ProviderSwitches = "Force Quote=false";
                     options.Timeout = TimeSpan.FromMinutes(10);
-                    options.ConnectionString = connectionString;
+                    options.ConnectionString = connectionStringConfig?.ConnectionString;
                 });
         return services;
     }
