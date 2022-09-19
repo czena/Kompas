@@ -8,6 +8,9 @@ using Circles.Persistence;
 using Circles.Persistence.Common;
 using Circles.Persistence.Configurations;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Circles.Api;
 

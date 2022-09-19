@@ -1,4 +1,7 @@
-﻿namespace Circles.Domain.Abstractions;
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+namespace Circles.Domain.Abstractions;
 
 public interface IUserRepository
 {

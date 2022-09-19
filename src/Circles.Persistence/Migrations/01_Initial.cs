@@ -1,4 +1,5 @@
-﻿using Circles.Persistence.Common;
+﻿using System;
+using Circles.Persistence.Common;
 using FluentMigrator;
 
 namespace Circles.Persistence.Migrations;

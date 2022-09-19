@@ -1,4 +1,7 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using System.Threading;
+using System.Threading.Tasks;
 using Circles.Domain;
 using Circles.Domain.Abstractions;
 using Circles.Persistence.Configurations;
@@ -10,7 +13,6 @@ namespace Circles.Persistence;
 public class UserRepository: IUserRepository
 {
     private readonly string _connectionString;
-    private string t = "";
     public UserRepository(IOptions<ConnectionStringConfiguration> connectionStringOptions)
     {
         _connectionString = connectionStringOptions.Value.ConnectionString ?? "";

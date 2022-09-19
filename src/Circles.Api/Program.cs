@@ -1,7 +1,10 @@
 using System;
 using System.Net;
 using FluentMigrator.Runner;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Circles.Api;
 
