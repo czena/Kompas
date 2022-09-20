@@ -1,11 +1,7 @@
-﻿using System;
-using System.Data;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Data;
 using Circles.Domain;
 using Circles.Domain.Abstractions;
-using Circles.Persistence.Configurations;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 namespace Circles.Persistence;
@@ -13,9 +9,9 @@ namespace Circles.Persistence;
 public class UserRepository: IUserRepository
 {
     private readonly string _connectionString;
-    public UserRepository(IOptions<ConnectionStringConfiguration> connectionStringOptions)
+    public UserRepository(IConfiguration configuration)
     {
-        _connectionString = connectionStringOptions.Value.ConnectionString ?? "";
+        _connectionString = configuration["ConnectionString"];
     }
 
     public async Task<User?> Get(string login, string password, CancellationToken ct)

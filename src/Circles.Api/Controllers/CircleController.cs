@@ -1,4 +1,5 @@
-﻿using Circles.Api.Requests;
+﻿using Circles.Api.Mappers;
+using Circles.Api.Requests;
 using Circles.Api.Responses;
 using Circles.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +23,7 @@ public sealed class CircleController: ControllerBase
     public async Task<IActionResult> GetCircles(CancellationToken ct)
     {
         var circles = await _circleService.GetCircles(ct);
-        return Ok(new GetCirclesResponse(circles));
+        return Ok(new GetCirclesResponse(circles.Select(a => a.ToDTO()).ToArray()));
     }
 
     [HttpPost]

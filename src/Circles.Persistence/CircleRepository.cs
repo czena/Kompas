@@ -2,8 +2,7 @@
 using System.Runtime.CompilerServices;
 using Circles.Domain;
 using Circles.Domain.Abstractions;
-using Circles.Persistence.Configurations;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 namespace Circles.Persistence;
@@ -12,9 +11,9 @@ public class CircleRepository: ICircleRepository
 {
     private readonly string _connectionString;
     
-    public CircleRepository(IOptions<ConnectionStringConfiguration> connectionStringOptions)
+    public CircleRepository(IConfiguration configuration)
     {
-        _connectionString = connectionStringOptions.Value.ConnectionString ?? "";
+        _connectionString = configuration["ConnectionString"];
     }
     
     public async IAsyncEnumerable<Circle> Get([EnumeratorCancellation] CancellationToken ct)

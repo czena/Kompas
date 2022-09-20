@@ -6,7 +6,6 @@ using Circles.Auth.Services.Interfaces;
 using Circles.Domain.Abstractions;
 using Circles.Persistence;
 using Circles.Persistence.Common;
-using Circles.Persistence.Configurations;
 
 namespace Circles.Api;
 
@@ -18,11 +17,8 @@ public sealed class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        var connectionString = _configuration.GetSection(nameof(ConnectionStringConfiguration));
-        services.Configure<ConnectionStringConfiguration>(connectionString);
-
         services.AddControllers();
-        services.AddFluentMigrator(connectionString.Get<ConnectionStringConfiguration>(), typeof(SqlMigration).Assembly);
+        services.AddFluentMigrator(_configuration, typeof(SqlMigration).Assembly);
         services.AddAuth(_configuration);
         services.AddRouting();
         
@@ -49,6 +45,7 @@ public sealed class Startup
             opt.RoutePrefix = string.Empty;
         });
         
+        app.UseCors(a => a.WithOrigins("http://localhost:8081").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();

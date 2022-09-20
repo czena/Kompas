@@ -1,5 +1,5 @@
-﻿using Circles.Domain;
+﻿using Circles.Api.DTOs;
 
 namespace Circles.Api.Responses;
 
-public record GetCirclesResponse(ICollection<Circle> Circles);
+public record GetCirclesResponse(ICollection<CircleDTO> Circles);

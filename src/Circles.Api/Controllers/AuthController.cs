@@ -28,7 +28,7 @@ public class AuthController: ControllerBase
     [HttpPost]
     public async Task<IActionResult> Login(LoginRequest request, CancellationToken token)
     {
-        var user = await _userService.Get(request.Login, request.Password, token);
+        var user = await _userService.Get(request.Login, request.Password, _configuration["User:Salt"], token);
         if (user == null) return Unauthorized();
         var authToken = _authService.GenerateTokenByLogin(_configuration["Jwt:Symmetric:Key"], request.Login);
         return Ok(new LoginResponse(authToken));

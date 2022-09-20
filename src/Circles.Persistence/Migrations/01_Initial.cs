@@ -29,8 +29,14 @@ public sealed class Initial : SqlMigration
                 ('Окружность 4', 33, 89),
                 ('Окружность 5', 120, 400),
                 ('Окружность 6', 18, 3),
-                ('Окружность 7', 2500, 3020)"
+                ('Окружность 7', 2500, 3020);
+                INSERT INTO users (login, password)
+                VALUES
+                ('admin', 'E37C0A61C2ABBFE419367F572BA7AA11'),
+                ('1', 'C372F08B3D96DCBD80576B24E8B03BB9')"
             ;
+        
+        
     }
 
     protected override string GetDownSql(IServiceProvider services)
