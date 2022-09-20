@@ -2,5 +2,5 @@
 
 public interface IAuthService
 {
-    object GenerateTokenByLogin(string symmetricKey, string userName);
+    string GenerateTokenByLogin(string symmetricKey, string userName);
 }

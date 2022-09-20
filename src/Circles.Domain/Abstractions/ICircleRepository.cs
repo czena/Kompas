@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-
-namespace Circles.Domain.Abstractions;
+﻿namespace Circles.Domain.Abstractions;
 
 public interface ICircleRepository
 {
-    IAsyncEnumerable<Circle> Get(CancellationToken token);
+    IAsyncEnumerable<Circle> Get(CancellationToken ct);
+    Task<int> SetDescription(int id, string description, CancellationToken ct);
 }

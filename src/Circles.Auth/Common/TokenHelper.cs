@@ -9,7 +9,7 @@ namespace Circles.Auth.Common;
 
 internal static class TokenHelper
 {
-    public static object GenerateToken(string symmetricKey, string userName) 
+    public static string GenerateToken(string symmetricKey, string userName) 
     {
         var signingCredentials = new SigningCredentials(
             key: new SymmetricSecurityKey(Encoding.UTF8.GetBytes(symmetricKey)),
@@ -26,10 +26,7 @@ internal static class TokenHelper
         );
         
         var token = new JwtSecurityTokenHandler().WriteToken(jwt);
-        
-        return new {
-            jwt = token,
-            unixTimeExpiresAt = new DateTimeOffset(jwtDate).ToUnixTimeMilliseconds()
-        };
+
+        return token;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Circles.Api.Requests;
+using Circles.Api.Responses;
 using Circles.Application.Services.Interfaces;
 using Circles.Auth.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -25,12 +26,12 @@ public class AuthController: ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> Login(GenerateTokenRequest request, CancellationToken token)
+    public async Task<IActionResult> Login(LoginRequest request, CancellationToken token)
     {
-        var user = await _userService.Get(request.user.Login, request.user.Password, token);
+        var user = await _userService.Get(request.Login, request.Password, token);
         if (user == null) return Unauthorized();
-        var authToken = _authService.GenerateTokenByLogin(_configuration["Jwt:Symmetric:Key"], request.user.Login);
-        return Ok(authToken);
+        var authToken = _authService.GenerateTokenByLogin(_configuration["Jwt:Symmetric:Key"], request.Login);
+        return Ok(new LoginResponse(authToken));
     }
 
     [HttpGet]

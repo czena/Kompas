@@ -7,10 +7,6 @@ using Circles.Domain.Abstractions;
 using Circles.Persistence;
 using Circles.Persistence.Common;
 using Circles.Persistence.Configurations;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Circles.Api;
 
@@ -29,11 +25,12 @@ public sealed class Startup
         services.AddFluentMigrator(connectionString.Get<ConnectionStringConfiguration>(), typeof(SqlMigration).Assembly);
         services.AddAuth(_configuration);
         services.AddRouting();
-
         
         services.AddSingleton<IUserRepository, UserRepository>();
+        services.AddSingleton<ICircleRepository, CircleRepository>();
+        
         services.AddSingleton<IUserService, UserService>();
-        services.AddSingleton<IUserRepository, UserRepository>();
+        services.AddSingleton<ICircleService, CircleService>();
         services.AddSingleton<IAuthService, AuthService>();
 
         services.AddSwaggerGen();

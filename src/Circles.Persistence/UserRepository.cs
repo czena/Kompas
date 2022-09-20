@@ -18,7 +18,7 @@ public class UserRepository: IUserRepository
         _connectionString = connectionStringOptions.Value.ConnectionString ?? "";
     }
 
-    public async Task<User?> Get(string login, string password, CancellationToken token)
+    public async Task<User?> Get(string login, string password, CancellationToken ct)
     {
         try
         {
@@ -38,9 +38,9 @@ public class UserRepository: IUserRepository
                     new NpgsqlParameter<string>("password", password),
                 }
             };
-            await connection.OpenAsync(token);
-            await using var reader = await command.ExecuteReaderAsync(CommandBehavior.SequentialAccess, token);
-            while (await reader.ReadAsync(token))
+            await connection.OpenAsync(ct);
+            await using var reader = await command.ExecuteReaderAsync(CommandBehavior.SequentialAccess, ct);
+            while (await reader.ReadAsync(ct))
             {
                 var pwd = reader.GetFieldValue<string>(1);
                 return new User(login, pwd);
