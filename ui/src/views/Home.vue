@@ -36,8 +36,10 @@ let editableCircleDescription = computed({
     if (!editableCircle || !editableCircle.value) return "";
     return editableCircle.value.description;
   },
-  set: (value: string) => {
-    circleModule.saveEditableCircleDescriptionMutation(value);
+  set: async (value: string) => {
+    if (editableCircle.value){
+      await circleModule.setDescription({id: editableCircle.value.id, newDescription: value});
+    }
   }
 });
 
@@ -52,10 +54,10 @@ onMounted(  async () => {
 </script>
 
 <style scoped>
-  .canvas{
+  .canvas-container{
     display: flex;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     position: absolute;
     background-color: transparent;
     overflow: auto;

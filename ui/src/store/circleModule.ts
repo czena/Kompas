@@ -4,9 +4,8 @@ import {Circle} from "@/models/circle";
 import env from "../../environment";
 import axios from "axios";
 import {GetCirclesResponse} from "@/contract/responses/getCirclesResponse";
-import {plainToInstance} from "class-transformer";
-import {CircleDTO} from "@/contract/dtos/circleDTO";
 import {CircleMapper} from "@/contract/mappers/circleMapper";
+import {SetDescriptionRequest} from "@/contract/requests/setDescriptionRequest";
 
 @Module({store: store, name: 'circleModule' })
 export class CircleModule extends VuexModule {
@@ -33,14 +32,14 @@ export class CircleModule extends VuexModule {
     }
 
     @Mutation
-    public saveEditableCircleDescriptionMutation(description: string){
+    private saveEditableCircleDescriptionMutation(description: string){
         if (!this._editableCircle) return;
-        this._editableCircle!.description = description;
+        this._editableCircle.description = description;
         this._editableCircle = undefined;
     }
 
     @Action({rawError: true})
-    public async GetCircles(){
+    public async getCircles(){
         let token = localStorage.getItem("token");
         let address = env.GetCirclesApi;
         let status = 200;
@@ -58,7 +57,30 @@ export class CircleModule extends VuexModule {
             this.addCircleMutation(circles.map(c => CircleMapper.ToModel(c)))
         }
     }
-    
+
+    @Action({rawError: true})
+    public async setDescription(circle: {id: number, newDescription: string}){
+        let token = localStorage.getItem("token");
+        let address = env.SetDescriptionApi;
+        let status = 200;
+        let request = new SetDescriptionRequest(circle.id, circle.newDescription);
+        try{
+            await axios.post(address, request, {
+                headers:{
+                    Authorization: "Bearer " + token
+                }
+            }).then(function(res){
+                status = res.status;
+            })
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+        if (status == 200){
+            this.saveEditableCircleDescriptionMutation(circle.newDescription);
+        }
+    }
 }
 
 export const circleModule = getModule(CircleModule);

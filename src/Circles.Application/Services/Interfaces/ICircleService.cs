@@ -6,4 +6,5 @@ public interface ICircleService
 {
     Task<ICollection<Circle>> GetCircles(CancellationToken ct);
     Task<int> SetDescription(int id, string description, CancellationToken ct);
+    Task<string?> GetDescription(int id, CancellationToken ct);
 }

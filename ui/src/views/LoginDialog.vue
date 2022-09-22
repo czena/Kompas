@@ -26,9 +26,11 @@ let passwordModel = computed({
 });
 
 
-function onClick(){
-  console.log(login, password);
-  authModule.login({login: login, password: password});
+async function onClick(){
+  await authModule.login({login: login, password: password});
+  if (authModule.IsAuthenticated){
+    await circleModule.getCircles();
+  }
 }
 
 </script>

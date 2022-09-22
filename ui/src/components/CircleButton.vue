@@ -1,6 +1,5 @@
 ﻿<template>
-  <div class="circle-button-container" @click="onClick">
-  </div>
+  <div class="circle-button-container" @click="onClick" />
 </template>
 
 <script setup lang="ts">
@@ -33,5 +32,6 @@ function onClick(){
   top: calc(v-bind(props.circle.y + 'px') - 15px);
   left: calc(v-bind(props.circle.x + 'px') - 15px);
   background-color: red;
+  border: 1px solid black;
 }
 </style>

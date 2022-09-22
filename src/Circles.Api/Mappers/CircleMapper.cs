@@ -1,10 +1,9 @@
 ﻿using Circles.Api.DTOs;
 using Circles.Domain;
-using Microsoft.AspNetCore.Identity;
 
 namespace Circles.Api.Mappers;
 
-public static class CircleMapper
+internal static class CircleMapper
 {
     public static CircleDTO ToDTO(this Circle circle)
     {

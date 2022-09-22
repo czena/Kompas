@@ -21,6 +21,14 @@ public sealed class Initial : SqlMigration
                     login text PRIMARY KEY,
                     password text
                 );
+                CREATE INDEX idx_id ON circles
+                (
+                    id
+                );
+                CREATE INDEX idx_login_id ON users
+                (
+                    login
+                );
                 INSERT INTO circles (description, x, y)
                 VALUES
                 ('Окружность 1', 0, 10),

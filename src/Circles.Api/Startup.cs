@@ -34,10 +34,6 @@ public sealed class Startup
 
     public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        app.UseRouting();
-        app.UseAuthentication();
-        app.UseAuthorization();
-        
         app.UseSwagger();
         app.UseSwaggerUI(opt =>
         {
@@ -45,7 +41,10 @@ public sealed class Startup
             opt.RoutePrefix = string.Empty;
         });
         
-        app.UseCors(a => a.WithOrigins("http://localhost:8081").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+        app.UseRouting();
+        app.UseCors(a => a.WithOrigins("http://localhost:8080").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();

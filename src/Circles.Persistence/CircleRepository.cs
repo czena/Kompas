@@ -19,7 +19,6 @@ public class CircleRepository: ICircleRepository
     public async IAsyncEnumerable<Circle> Get([EnumeratorCancellation] CancellationToken ct)
     {
         const string query = @"SELECT id,
-                                       description,
                                        x,
                                        y
                                 FROM circles
@@ -34,9 +33,8 @@ public class CircleRepository: ICircleRepository
         {
             var circle = new Circle(
                 reader.GetFieldValue<int>(0),
-                reader.GetFieldValue<string>(1),
-                reader.GetFieldValue<long>(2),
-                reader.GetFieldValue<long>(3));
+                reader.GetFieldValue<long>(1),
+                reader.GetFieldValue<long>(2));
             yield return circle;
         }
     }
@@ -58,5 +56,20 @@ public class CircleRepository: ICircleRepository
         };
         await connection.OpenAsync(ct);
         return await command.ExecuteNonQueryAsync(ct);
+    }
+
+    public async Task<string> GetDescription(int id, CancellationToken ct)
+    {
+        const string query = @"SELECT description
+                                FROM circles
+                                WHERE id = :id;
+                                ";
+        
+        await using var connection = new NpgsqlConnection(_connectionString);
+        await using var command = new NpgsqlCommand(query, connection);
+        await connection.OpenAsync(ct);
+        await using var reader = await command.ExecuteReaderAsync(CommandBehavior.SequentialAccess, ct);
+        await reader.ReadAsync(ct);
+        return reader.GetFieldValue<string>(0);
     }
 }

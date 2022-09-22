@@ -4,7 +4,6 @@ import env from "../../environment";
 import {LoginResponse} from "@/contract/responses/loginResponse";
 import axios from "axios";
 import {LoginRequest} from "@/contract/requests/loginRequest";
-import {plainToInstance} from "class-transformer";
 import {circleModule} from "@/store/circleModule";
 
 @Module({store: store, name: 'authModule' })
@@ -16,7 +15,7 @@ export class AuthModule extends VuexModule {
     }
 
     @Mutation
-    private isAuthenticatedMutation(isAuthenticated: {value: boolean, token: string}){
+    public isAuthenticatedMutation(isAuthenticated: {value: boolean, token: string}){
         localStorage.setItem("token", isAuthenticated.token);
         this._isAuthenticated = isAuthenticated.value;
     }
@@ -43,7 +42,6 @@ export class AuthModule extends VuexModule {
     @Action({rawError: true})
     public async validateToken(){
         let token = localStorage.getItem("token");
-        console.log(token);
         let address = env.ValidateTokenApi;
         let status = 200;
         await axios.get(address, {
@@ -52,9 +50,11 @@ export class AuthModule extends VuexModule {
             }
         }).then(function(res){
             status = res.status;
+        }).catch(function(error){
+            console.log(error);
         });
         if (status == 200){
-            await circleModule.GetCircles();
+            await circleModule.getCircles();
             this.isAuthenticatedMutation({value: true, token: token!});
         }
     }

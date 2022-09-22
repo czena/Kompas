@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 
 namespace Circles.Auth.Common;
 
 internal static class TokenHelper
 {
-    public static string GenerateToken(string symmetricKey, string userName) 
+    public static string GenerateToken(string symmetricKey, string userName, IConfiguration configuration) 
     {
         var signingCredentials = new SigningCredentials(
             key: new SymmetricSecurityKey(Encoding.UTF8.GetBytes(symmetricKey)),
@@ -17,11 +16,11 @@ internal static class TokenHelper
         var jwtDate = DateTime.Now;
 
         var jwt = new JwtSecurityToken(
-            audience: "circle",
-            issuer: "circle",
+            audience: configuration["Jwt:Audience"],
+            issuer: configuration["Jwt:Issuer"],
             claims: new List<Claim> {new(ClaimTypes.NameIdentifier, userName)},
             notBefore: jwtDate,
-            expires: jwtDate.AddSeconds(60),
+            expires: jwtDate.AddSeconds(30),
             signingCredentials: signingCredentials
         );
         

@@ -22,4 +22,9 @@ public class CircleService: ICircleService
     {
         return await _circleRepository.SetDescription(id, description, ct);
     }
+
+    public async Task<string?> GetDescription(int id, CancellationToken ct)
+    {
+        return await _circleRepository.GetDescription(id, ct);
+    }
 }

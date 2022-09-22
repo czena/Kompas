@@ -1,12 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Circles.Api.Requests;
+﻿using Circles.Api.Requests;
 using Circles.Api.Responses;
 using Circles.Application.Services.Interfaces;
 using Circles.Auth.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace Circles.Api.Controllers;
 
@@ -26,6 +23,8 @@ public class AuthController: ControllerBase
     }
     
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login(LoginRequest request, CancellationToken token)
     {
         var user = await _userService.Get(request.Login, request.Password, _configuration["User:Salt"], token);
@@ -36,6 +35,8 @@ public class AuthController: ControllerBase
 
     [HttpGet]
     [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public IActionResult ValidateToken() 
     {
         return Ok();
