@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace Circles.Persistence;
 
-public class CircleRepository: ICircleRepository
+public sealed class CircleRepository: ICircleRepository
 {
     private readonly string _connectionString;
     

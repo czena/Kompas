@@ -8,7 +8,7 @@ namespace Circles.Auth.Common;
 
 internal static class TokenHelper
 {
-    public static string GenerateToken(string symmetricKey, string userName, IConfiguration configuration) 
+    internal static string GenerateToken(string symmetricKey, string userName, IConfiguration configuration) 
     {
         var signingCredentials = new SigningCredentials(
             key: new SymmetricSecurityKey(Encoding.UTF8.GetBytes(symmetricKey)),

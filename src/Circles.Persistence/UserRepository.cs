@@ -6,7 +6,7 @@ using Npgsql;
 
 namespace Circles.Persistence;
 
-public class UserRepository: IUserRepository
+public sealed class UserRepository: IUserRepository
 {
     private readonly string _connectionString;
     public UserRepository(IConfiguration configuration)

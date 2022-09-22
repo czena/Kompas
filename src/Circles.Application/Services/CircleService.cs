@@ -4,9 +4,9 @@ using Circles.Domain.Abstractions;
 
 namespace Circles.Application.Services;
 
-public class CircleService: ICircleService
+public sealed class CircleService: ICircleService
 {
-    private ICircleRepository _circleRepository;
+    private readonly ICircleRepository _circleRepository;
 
     public CircleService(ICircleRepository circleRepository)
     {

@@ -10,7 +10,7 @@ namespace Circles.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-public class AuthController: ControllerBase
+public sealed  class AuthController: ControllerBase
 {
     private readonly IConfiguration _configuration;
     private readonly IAuthService _authService;

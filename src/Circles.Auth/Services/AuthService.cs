@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace Circles.Auth.Services;
 
-public class AuthService: IAuthService
+public sealed class AuthService: IAuthService
 {
-    private IConfiguration _configuration;
+    private readonly IConfiguration _configuration;
 
     public AuthService(IConfiguration configuration)
     {
