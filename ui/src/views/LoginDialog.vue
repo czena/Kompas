@@ -63,12 +63,9 @@ async function onClick(){
 .login-dialog {
   position: absolute;
   top: 50%;
-  left: 50%;
-  display: -ms-flexbox;
+  left: calc(50% - 150px);
   display: flex;
-  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-pack: center;
   justify-content: center;
   width: 300px;
   background-color: gray;

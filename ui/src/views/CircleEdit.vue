@@ -15,10 +15,6 @@
 <script setup lang="ts">
 
 import {computed, ComputedRef, onMounted, ref, Ref} from "vue";
-import {GetDescriptionRequest} from "@/contract/requests/getDescriptionRequest";
-import axios, {AxiosError} from "axios";
-import env from "../../environment";
-import {GetDescriptionResponse} from "@/contract/responses/getDescriptionResponse";
 import {circleModule} from "@/store/circleModule";
 import {errorModule} from "@/store/errorModule";
 
@@ -32,28 +28,12 @@ interface ICircleEdit {
   id: number;
 }
 
-onMounted(async() => {
-  await getDescription();
-})
-
 const props = defineProps<ICircleEdit>();
 const emit = defineEmits<{ (e: 'close', val: string): void }>();
 
-async function getDescription(){
-  let request = new GetDescriptionRequest(props.id);
-  await axios.post(env.GetDescriptionApi, request, {
-    headers:{
-      Authorization: "Bearer " + localStorage.getItem("token")
-    }
-  }).then(function(res){
-    if (res.status == 200){
-      input.value = (<GetDescriptionResponse>res.data).description;
-    }
-    else errorModule.setCode(res.status)
-  }).catch(function(error: AxiosError){
-    errorModule.setError(error);
-  });
-}
+onMounted(async() => {
+  input.value = await circleModule.getDescription(props.id) ?? "";
+});
 
 let input: Ref<string> = ref("");
 let value: Ref<string> = computed({
@@ -67,7 +47,7 @@ function onClose(){
 
 async function onClick() {
   await circleModule.setDescription({id: props.id, newDescription: input.value});
-  if (!hasError.value)  emit('close', input.value);
+  if (!hasError.value) emit('close', input.value);
 }
 
 </script>
@@ -87,13 +67,9 @@ async function onClick() {
 .circle-edit-dialog {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: -ms-flexbox;
+  left: calc(50% - 150px);
   display: flex;
-  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-pack: center;
   justify-content: center;
   width: 300px;
   background-color: gray;

@@ -26,7 +26,11 @@ import CircleEdit from "@/views/CircleEdit.vue";
 import {authModule} from "@/store/authModule";
 import LoginDialog from "@/views/LoginDialog.vue";
 
-let isAuthenticated: ComputedRef<boolean> = computed(() => authModule.IsAuthenticated);
+let isAuthenticated: ComputedRef<boolean> = computed(() => {
+  if (authModule.IsAuthenticated) editableCircle.value = null;
+  return authModule.IsAuthenticated
+});
+
 let circles: ComputedRef<Circle[]> = computed(() => circleModule.Circles);
 
 let editableCircle: Ref<Circle | null> = ref(null);

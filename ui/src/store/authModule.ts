@@ -9,12 +9,12 @@ import {errorModule} from "@/store/errorModule";
 
 @Module({store: store, name: 'authModule' })
 export class AuthModule extends VuexModule {
-    private _isAuthenticated: boolean = false;
+    private _isAuthenticated: boolean = true;
     
     public get IsAuthenticated(): boolean{
         return this._isAuthenticated;
     }
-
+    
     @Mutation
     public isAuthenticatedMutation(isAuthenticated: {value: boolean, token: string}){
         localStorage.setItem("token", isAuthenticated.token);
@@ -27,14 +27,12 @@ export class AuthModule extends VuexModule {
         await axios.post<LoginResponse>(env.LoginApi, request).
         then(function(res: AxiosResponse<LoginResponse>){
             if (res.status == 200){
-                if (res?.data) {
-                    let token = res.data.token;
-                    if (!token || token == ""){
-                        authModule.isAuthenticatedMutation({value: false, token: ""});
-                    }
-                    else {
-                        authModule.isAuthenticatedMutation({value: true, token: token});
-                    }
+                let token = res.data.token;
+                if (!token || token == ""){
+                    authModule.isAuthenticatedMutation({value: false, token: ""});
+                }
+                else {
+                    authModule.isAuthenticatedMutation({value: true, token: token});
                 }
             }
             else errorModule.setCode(res.status);
@@ -57,6 +55,9 @@ export class AuthModule extends VuexModule {
             }
             else errorModule.setCode(res.status);
         }).catch(function(error: AxiosError){
+            if (error.response?.status == 401){
+                authModule.isAuthenticatedMutation({value: false, token: ""});
+            }
         });
     }
 }

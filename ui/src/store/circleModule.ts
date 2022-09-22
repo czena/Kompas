@@ -13,7 +13,7 @@ import {errorModule} from "@/store/errorModule";
 @Module({store: store, name: 'circleModule' })
 export class CircleModule extends VuexModule {
     private _circles: Circle[] = [];
-
+    
     public get Circles(): Circle[]{
         return this._circles;
     }
@@ -65,7 +65,7 @@ export class CircleModule extends VuexModule {
         let token = localStorage.getItem("token");
         let request = new GetDescriptionRequest(id);
 
-        return await axios.post(env.SetDescriptionApi, request, {
+        return await axios.post(env.GetDescriptionApi, request, {
             headers: {
                 Authorization: "Bearer " + token
             }
@@ -76,6 +76,7 @@ export class CircleModule extends VuexModule {
             else errorModule.setCode(res.status);
         }).catch(function (error: AxiosError) {
             errorModule.setError(error);
+            return "";
         });
     }
 }
