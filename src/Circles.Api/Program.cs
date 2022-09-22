@@ -24,6 +24,7 @@ public static class Program
             using var scope = host.Services.CreateScope();
             var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
             runner.MigrateUp();
+            Environment.Exit(0);
         }
         else host.Run();
     }

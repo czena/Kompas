@@ -26,17 +26,6 @@ public static class ServiceCollectionExtensions
                     ValidateIssuer = true,
                     ClockSkew = TimeSpan.FromSeconds(30)
                 };
-                options.Events = new JwtBearerEvents()
-                {
-                    OnAuthenticationFailed = context =>
-                    {
-                        context.NoResult();
-                        context.Response.StatusCode = 401;
-                        context.Response.ContentType = "text/plain";
-
-                        return context.Response.WriteAsync(context.Exception.ToString());
-                    }
-                };
             });
         return services;
     }

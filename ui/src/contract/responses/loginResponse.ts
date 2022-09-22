@@ -1,5 +1,3 @@
-﻿import 'reflect-metadata'
-
-export class LoginResponse{
+﻿export class LoginResponse{
     public token?: string;
 }

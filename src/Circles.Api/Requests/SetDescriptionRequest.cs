@@ -1,3 +1,5 @@
-﻿namespace Circles.Api.Requests;
+﻿using System.ComponentModel.DataAnnotations;
 
-public record SetDescriptionRequest(int Id, string Description);
+namespace Circles.Api.Requests;
+
+public record SetDescriptionRequest([Required]int Id, string Description);

@@ -17,7 +17,7 @@ public sealed class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllers();
+        services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
         services.AddFluentMigrator(_configuration, typeof(SqlMigration).Assembly);
         services.AddAuth(_configuration);
         services.AddRouting();
@@ -42,7 +42,7 @@ public sealed class Startup
         });
         
         app.UseRouting();
-        app.UseCors(a => a.WithOrigins("http://localhost:8080").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+        app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseEndpoints(endpoints =>

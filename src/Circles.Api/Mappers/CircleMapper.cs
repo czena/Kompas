@@ -7,6 +7,6 @@ internal static class CircleMapper
 {
     public static CircleDTO ToDTO(this Circle circle)
     {
-        return new CircleDTO(circle.Id, circle.Description, circle.x, circle.y);
+        return new CircleDTO(circle.Id, circle.X, circle.Y);
     }
 }

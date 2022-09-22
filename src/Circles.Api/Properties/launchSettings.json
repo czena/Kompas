@@ -3,6 +3,8 @@
     "Run": {
       "commandName": "Project",
       "launchBrowser": true,
+      "windowsAuthentication": true,
+      "anonymousAuthentication": true,
       "applicationUrl": "https://localhost:7251;",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

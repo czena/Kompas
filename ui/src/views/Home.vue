@@ -7,8 +7,8 @@
                    @edit="onEditCircle" />
     <teleport to="#portal-target">
       <circle-edit v-if="editableCircle" 
-                   :id="editableCircle?.id"
-                   v-model:description="editableCircleDescription"/>
+                   :id="editableCircle.id"
+                   @close="onEditClose"/>
     </teleport>
     <teleport to="#portal-target">
       <login-dialog v-if="!isAuthenticated"/>
@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 
-import {computed, ComputedRef, onMounted} from "vue";
+import {computed, ComputedRef, onMounted, ref, Ref} from "vue";
 import {circleModule} from "@/store/circleModule";
 import CircleButton from "@/components/CircleButton.vue";
 import {Circle} from "@/models/Circle";
@@ -27,24 +27,16 @@ import {authModule} from "@/store/authModule";
 import LoginDialog from "@/views/LoginDialog.vue";
 
 let isAuthenticated: ComputedRef<boolean> = computed(() => authModule.IsAuthenticated);
-
 let circles: ComputedRef<Circle[]> = computed(() => circleModule.Circles);
-let editableCircle: ComputedRef<Circle | undefined> = computed(() => circleModule.EditableCircle);
 
-let editableCircleDescription = computed({
-  get: () => {
-    if (!editableCircle || !editableCircle.value) return "";
-    return editableCircle.value.description;
-  },
-  set: async (value: string) => {
-    if (editableCircle.value){
-      await circleModule.setDescription({id: editableCircle.value.id, newDescription: value});
-    }
-  }
-});
+let editableCircle: Ref<Circle | null> = ref(null);
 
 function onEditCircle(circle: Circle){
-  circleModule.circleEditMutation(circle);
+  editableCircle.value = circle;
+}
+
+function onEditClose(){
+  editableCircle.value = null;
 }
 
 onMounted(  async () => {

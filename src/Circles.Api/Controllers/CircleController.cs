@@ -44,13 +44,13 @@ public sealed class CircleController: ControllerBase
     
     [HttpPost]
     [Authorize]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetDescriptionResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetDescription(GetDescriptionRequest request, CancellationToken ct)
     {
         var result = await _circleService.GetDescription(request.Id, ct);
         if (result == null) return new NotFoundResult();
-        return Ok(result);
+        return Ok(new GetDescriptionResponse(result));
     }
 }

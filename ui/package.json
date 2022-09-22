@@ -8,8 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "class-transformer": "^0.5.1",
-    "oidc-client-ts": "^2.0.6",
+    "axios-middleware": "^0.3.1",
     "vue": "^3.2.2",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0",

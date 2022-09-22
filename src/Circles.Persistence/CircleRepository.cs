@@ -66,7 +66,13 @@ public class CircleRepository: ICircleRepository
                                 ";
         
         await using var connection = new NpgsqlConnection(_connectionString);
-        await using var command = new NpgsqlCommand(query, connection);
+        await using var command = new NpgsqlCommand(query, connection)
+        {
+            Parameters =
+            {
+                new NpgsqlParameter<int>("id", id),
+            }
+        };
         await connection.OpenAsync(ct);
         await using var reader = await command.ExecuteReaderAsync(CommandBehavior.SequentialAccess, ct);
         await reader.ReadAsync(ct);

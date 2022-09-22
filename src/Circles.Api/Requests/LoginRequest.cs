@@ -1,3 +1,5 @@
-﻿namespace Circles.Api.Requests;
+﻿using System.ComponentModel.DataAnnotations;
 
-public record LoginRequest(string Login, string Password);
+namespace Circles.Api.Requests;
+
+public record LoginRequest([Required]string Login, [Required]string Password);

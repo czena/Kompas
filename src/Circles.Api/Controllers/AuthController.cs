@@ -3,6 +3,7 @@ using Circles.Api.Responses;
 using Circles.Application.Services.Interfaces;
 using Circles.Auth.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Circles.Api.Controllers;
@@ -35,6 +36,7 @@ public class AuthController: ControllerBase
 
     [HttpGet]
     [Authorize]
+    [EnableCors]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public IActionResult ValidateToken() 
