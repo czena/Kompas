@@ -18,18 +18,18 @@ import {computed, ComputedRef, onMounted, ref, Ref} from "vue";
 import {circleModule} from "@/store/circleModule";
 import {errorModule} from "@/store/errorModule";
 
-let hasError: ComputedRef<boolean> = computed(() => errorModule.HasError);
-
-let errorMessage: ComputedRef<string> = computed(() => {
-  return "Неизвестная ошибка";
-});
-
 interface ICircleEdit {
   id: number;
 }
 
 const props = defineProps<ICircleEdit>();
 const emit = defineEmits<{ (e: 'close', val: string): void }>();
+
+let hasError: ComputedRef<boolean> = computed(() => errorModule.HasError);
+
+let errorMessage: ComputedRef<string> = computed(() => {
+  return "Неизвестная ошибка";
+});
 
 onMounted(async() => {
   input.value = await circleModule.getDescription(props.id) ?? "";
